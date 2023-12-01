@@ -24,6 +24,11 @@ public class CustService {
 		return list;
 	}
 	
+	public Customer getCustByPhone(String phone) {
+		Customer getPhone = repo.getCustByphone( phone);
+		return getPhone;
+	}
+	
 	
 
 }

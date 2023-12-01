@@ -1,6 +1,6 @@
 package com.gym.controller;
 
-import java.util.List;
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.gym.models.Customer;
 import com.gym.service.CustService;
 
-@RequestMapping("/api")
+@RequestMapping("/api/cust")
 @RestController
 public class CustController {
 	
@@ -29,6 +29,12 @@ public class CustController {
 	public List<Customer> getAllCust(){
 		List<Customer> list = service.getAllCust();
 		return list;
+	}
+	
+	@GetMapping("/getPhone/{phone}")
+	public Customer getCustByPhone(@RequestBody String phone) {
+		Customer getPhone = service.getCustByPhone(phone);
+		return getPhone;
 	}
 
 }

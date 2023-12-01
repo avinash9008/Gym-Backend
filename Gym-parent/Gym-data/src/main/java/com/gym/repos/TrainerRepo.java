@@ -3,11 +3,9 @@ package com.gym.repos;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.gym.models.User;
+import com.gym.models.Trainer;
 
 @Repository
-public interface UserRepo extends JpaRepository<User, Long>{
-
-	public User findByusername(String username);
+public interface TrainerRepo extends JpaRepository<Trainer, Long> {
 
 }

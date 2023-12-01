@@ -8,4 +8,6 @@ import com.gym.models.Customer;
 @Repository
 public interface CustomerRepo extends JpaRepository<Customer, Long>{
 
+	public Customer getCustByphone(String phone);
+
 }

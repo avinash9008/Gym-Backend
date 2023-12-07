@@ -84,5 +84,10 @@
 		</plugins>
 	</build>
 
-
+      <modules>
+		<module>Gym-data</module>
+		<module>Gym-service</module>
+		<module>Gym-web</module>
+		<module>Gym-security</module>
+	</modules>
 </project>

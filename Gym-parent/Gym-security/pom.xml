@@ -4,9 +4,10 @@
     <groupId>com.gym</groupId>
     <artifactId>Gym-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    
   </parent>
   <artifactId>Gym-security</artifactId>
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
   <name>Gym-security</name>
   <description>Gym-security</description>
   

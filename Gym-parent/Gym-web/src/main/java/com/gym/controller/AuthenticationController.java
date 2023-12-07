@@ -7,6 +7,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,8 @@ import io.jsonwebtoken.io.IOException;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class AuthenticationController {
 	
 	@Autowired
@@ -30,7 +33,7 @@ public class AuthenticationController {
 	
 	@Autowired
 	private UserDetailsServiceImpl uServiceImpl;
-	
+	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("/authenticate")
     public AuthonticationResponse createAuthenticationToken(@RequestBody AuthenticationDto authenticationDTO, HttpServletResponse response) throws BadCredentialsException, DisabledException, UsernameNotFoundException, IOException, java.io.IOException {
         try {

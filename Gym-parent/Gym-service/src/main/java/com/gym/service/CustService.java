@@ -29,6 +29,9 @@ public class CustService {
 		return getPhone;
 	}
 	
-	
+	public Customer  deleteCustomerByphone(String phone) {
+		Customer getPhone = repo.deleteCustomerByphone(phone);
+		return getPhone;
+	}
 
 }

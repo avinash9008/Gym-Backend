@@ -16,7 +16,6 @@ import com.gym.service.CustService;
 
 @RequestMapping("/api/cust")
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 public class CustController {
 	
 	@Autowired

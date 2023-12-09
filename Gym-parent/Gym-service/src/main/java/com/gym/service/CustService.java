@@ -30,8 +30,29 @@ public class CustService {
 	}
 	
 	public Customer  deleteCustomerByphone(String phone) {
-		Customer getPhone = repo.deleteCustomerByphone(phone);
+		Customer getPhone = repo.deleteCustByPhone(phone);
 		return getPhone;
+	}
+
+	public Customer updateCustByphone(String phone, Customer updatedCustomerData) {
+		Customer existingCustomer = repo.findByphone(phone);
+		if(existingCustomer != null) {
+			existingCustomer.setFirstname(updatedCustomerData.getFirstname());
+			existingCustomer.setLastname(updatedCustomerData.getLastname());
+			existingCustomer.setPhone(updatedCustomerData.getPhone());
+            existingCustomer.setSession(updatedCustomerData.getSession());
+            existingCustomer.setJoiningDate(updatedCustomerData.getJoiningDate());
+            existingCustomer.setAmount(updatedCustomerData.getAmount());
+            
+            return repo.save(existingCustomer);
+		}else {
+		return null;
+		}
+	}
+	
+	public Customer updateCustByFirstnameAndPhone(String firstname, String phone) {
+		Customer getData = repo.getCustByFirstnameAndPhone(firstname, phone) ;
+		return getData;
 	}
 
 }

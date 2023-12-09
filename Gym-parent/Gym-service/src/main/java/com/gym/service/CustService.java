@@ -30,18 +30,8 @@ public class CustService {
 	}
 	
 	public Customer  deleteCustomerByphone(String phone) {
-		Customer getPhone = repo.deleteCustByPhone(phone);
+		Customer getPhone = repo.deleteCustomerByphone(phone);
 		return getPhone;
-	}
-
-	public Customer updateCustByphone(String phone) {
-		Customer getPhone = repo.findByphone(phone); 
-		return getPhone;
-	}
-	
-	public Customer updateCustByFirstnameAndPhone(String firstname, String phone) {
-		Customer getData = repo.getCustByFirstnameAndPhone(firstname, phone) ;
-		return getData;
 	}
 
 }

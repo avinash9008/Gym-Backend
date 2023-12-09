@@ -1,6 +1,6 @@
 package com.gym.controller;
 
-import org.springframework.beans.factory.annotation.Autowired; 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -33,9 +33,10 @@ public class AuthenticationController {
 	
 	@Autowired
 	private UserDetailsServiceImpl uServiceImpl;
-	@PostMapping("/authenticate")
+	
 	@CrossOrigin(origins = "http://localhost:4200")
-
+	@PostMapping("/authenticate")
+	
     public AuthonticationResponse createAuthenticationToken(@RequestBody AuthenticationDto authenticationDTO, HttpServletResponse response) throws BadCredentialsException, DisabledException, UsernameNotFoundException, IOException, java.io.IOException {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationDTO.getUsername() ,authenticationDTO.getPassword()));

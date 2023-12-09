@@ -34,20 +34,9 @@ public class CustService {
 		return getPhone;
 	}
 
-	public Customer updateCustByphone(String phone, Customer updatedCustomerData) {
-		Customer existingCustomer = repo.findByphone(phone);
-		if(existingCustomer != null) {
-			existingCustomer.setFirstname(updatedCustomerData.getFirstname());
-			existingCustomer.setLastname(updatedCustomerData.getLastname());
-			existingCustomer.setPhone(updatedCustomerData.getPhone());
-            existingCustomer.setSession(updatedCustomerData.getSession());
-            existingCustomer.setJoiningDate(updatedCustomerData.getJoiningDate());
-            existingCustomer.setAmount(updatedCustomerData.getAmount());
-            
-            return repo.save(existingCustomer);
-		}else {
-		return null;
-		}
+	public Customer updateCustByphone(String phone) {
+		Customer getPhone = repo.findByphone(phone); 
+		return getPhone;
 	}
 	
 	public Customer updateCustByFirstnameAndPhone(String firstname, String phone) {

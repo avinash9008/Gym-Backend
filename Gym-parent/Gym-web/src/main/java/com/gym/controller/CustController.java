@@ -11,12 +11,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gym.emailService.EmailService;
 import com.gym.models.Customer;
 import com.gym.service.CustService;
+
+import jakarta.mail.MessagingException;
 
 @RequestMapping("/api/cust")
 @RestController
 public class CustController {
+	@Autowired
+	private EmailService emailService;
+
+	// Example usage
+	
 	
 	@Autowired
 	private CustService service;
@@ -25,6 +33,7 @@ public class CustController {
 	@PostMapping("save")
 	public Customer saveCust(@RequestBody Customer cust) {
 		Customer data = service.saveCust(cust);
+		sendEmail(cust.getEmail());
 		return data;
 	}
 	
@@ -45,5 +54,13 @@ public class CustController {
 		Customer getPhone = service.deleteCustomerByphone(phone);
 		return getPhone;
 	}
-
+	
+	public void sendEmail(String eamil) {
+	try {
+	    emailService.sendEmail(eamil, "GymRegistration", "Hello,you have successfully registred in to  our GYM");
+	    
+	} catch (MessagingException e) {
+	    // Handle exceptions
+	}
+	}
 }

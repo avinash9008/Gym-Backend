@@ -18,18 +18,20 @@ public class Customer {
 	@Column
 	private String phone;
 	private String session;
+	private String email;
 	
 	public Customer() {}
 	
 	
 
-	public Customer(long id, String firstname, String lastname, String phone, String session) {
+	public Customer(long id, String firstname, String lastname, String phone, String session, String email) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.phone = phone;
 		this.session = session;
+		this.email = email;
 	}
 
 
@@ -88,6 +90,18 @@ public class Customer {
 
 	public void setSession(String session) {
 		this.session = session;
+	}
+
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
   
 	

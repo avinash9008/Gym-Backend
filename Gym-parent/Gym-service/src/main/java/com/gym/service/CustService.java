@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.gym.models.Customer;
 import com.gym.repos.CustomerRepo;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class CustService {
 	
 	@Autowired
@@ -29,9 +31,34 @@ public class CustService {
 		return getPhone;
 	}
 	
-	public Customer  deleteCustomerByphone(String phone) {
-		Customer getPhone = repo.deleteCustomerByphone(phone);
-		return getPhone;
+	public void  deleteCustomerByphone(String phone) {
+		Customer existingCustomer = repo.findByphone(phone);
+		if(existingCustomer !=null) {
+			repo.delete(existingCustomer);
+		}else {
+			System.out.println("Customer with phone"+phone+"is not present");
+		}
+		
+	}
+	
+	public Customer updateCustomerByPhone(String phone, Customer updatedData) {
+		Customer existingCustomer = repo.findByphone(phone);
+		
+		if(existingCustomer != null) {
+			existingCustomer.setFirstname(updatedData.getFirstname());
+			existingCustomer.setLastname(updatedData.getLastname());
+			existingCustomer.setPhone(updatedData.getPhone() );
+			existingCustomer.setSession(updatedData.getSession());
+			existingCustomer.setJoiningDate(updatedData.getJoiningDate());
+			existingCustomer.setAmount(updatedData.getAmount());
+			existingCustomer.setEmail(updatedData.getEmail());
+			
+			return repo.save(existingCustomer);
+		}
+		else {
+			return null;
+		}
+		
 	}
 
 }

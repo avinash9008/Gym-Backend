@@ -1,5 +1,7 @@
 package com.gym.models;
 
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,12 +21,16 @@ public class Customer {
 	private String phone;
 	private String session;
 	private String email;
+	private Date joiningDate;
+	private String amount;
+	
 	
 	public Customer() {}
 	
 	
 
-	public Customer(long id, String firstname, String lastname, String phone, String session, String email) {
+	public Customer(long id, String firstname, String lastname, String phone, String session, String email
+			         , Date joiningData, String amount) {
 		super();
 		this.id = id;
 		this.firstname = firstname;
@@ -32,6 +38,8 @@ public class Customer {
 		this.phone = phone;
 		this.session = session;
 		this.email = email;
+		this.joiningDate = joiningData;
+		this.amount = amount;
 	}
 
 
@@ -103,7 +111,32 @@ public class Customer {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-  
+
+
+
+	public Date getJoiningDate() {
+		return joiningDate;
+	}
+
+
+
+	public void setJoiningDate(Date joiningDate) {
+		this.joiningDate = joiningDate;
+	}
+
+
+
+	public String getAmount() {
+		return amount;
+	}
+
+
+
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+    
+	
 	
 	
 

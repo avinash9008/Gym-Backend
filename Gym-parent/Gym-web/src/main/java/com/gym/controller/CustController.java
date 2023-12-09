@@ -3,12 +3,18 @@ package com.gym.controller;
 import java.util.List;  
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gym.emailService.EmailService;
@@ -49,10 +55,20 @@ public class CustController {
 		return getPhone;
 	}
 	
-	@DeleteMapping("/deletephone/{}phone")
-	public Customer deleteCustomerByphone(String phone) {
-		Customer getPhone = service.deleteCustomerByphone(phone);
-		return getPhone;
+	@DeleteMapping("/delete/{phone}")
+	public ResponseEntity<String> deleteCustomer(@PathVariable String phone){
+		service.deleteCustomerByphone(phone);
+		return new ResponseEntity<String>("Customer deleted sucessfully", HttpStatus.OK);
+	}
+	
+	@PutMapping("/update/{phone}")
+	public ResponseEntity<Customer> updateCustomer(@PathVariable String phone, @RequestBody Customer updatedCutomer) {
+		Customer updatedCustomer = service.updateCustomerByPhone(phone, updatedCutomer);
+		if(updatedCustomer != null) {
+			return new ResponseEntity<Customer>(updatedCustomer, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	public void sendEmail(String eamil) {

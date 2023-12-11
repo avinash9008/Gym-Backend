@@ -38,7 +38,7 @@ public class AuthenticationController {
 	@PostMapping("/authenticate")
 	
     public AuthonticationResponse createAuthenticationToken(@RequestBody AuthenticationDto authenticationDTO, HttpServletResponse response) throws BadCredentialsException, DisabledException, UsernameNotFoundException, IOException, java.io.IOException {
-        try {
+        try  {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationDTO.getUsername() ,authenticationDTO.getPassword()));
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException("Incorrect username or password!");

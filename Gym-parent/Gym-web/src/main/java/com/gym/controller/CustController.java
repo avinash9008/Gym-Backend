@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gym.emailService.EmailService;
 import com.gym.models.Customer;
+import com.gym.repos.CustomerRepo;
 import com.gym.service.CustService;
 
 import jakarta.mail.MessagingException;
@@ -34,6 +35,9 @@ public class CustController {
 	
 	@Autowired
 	private CustService service;
+	
+	@Autowired
+	private CustomerRepo repo;
 	
 	@CrossOrigin(origins = "http://localhost:4200")
 	@PostMapping("save")

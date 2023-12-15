@@ -2,6 +2,9 @@ package com.gym.models;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonFormatTypes;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,10 +20,12 @@ public class Customer {
 	private long id;
 	private String firstname;
 	private String lastname;
-	@Column
+	@Column(unique = true)
 	private String phone;
 	private String session;
 	private String email;
+	
+//	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern ="mm/dd/yyyy")
 	private Date joiningDate;
 	private String amount;
 	

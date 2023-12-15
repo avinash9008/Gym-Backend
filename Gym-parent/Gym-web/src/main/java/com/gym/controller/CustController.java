@@ -1,10 +1,11 @@
 package com.gym.controller;
 
-import java.util.List;  
+import java.util.List; 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gym.emailService.EmailService;
@@ -26,7 +26,12 @@ import jakarta.mail.MessagingException;
 
 @RequestMapping("/api/cust")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
+
 public class CustController {
+	
+	private static final String PHONE_NUMBER_REGEX = "^[+]?[0-9]{8,}$"; // Modify the regex as needed
+	
 	@Autowired
 	private EmailService emailService;
 
@@ -53,19 +58,49 @@ public class CustController {
 		return list;
 	}
 	
-	@GetMapping("/getPhone/{phone}")
-	public Customer getCustByPhone(@RequestBody String phone) {
-		Customer getPhone = service.getCustByPhone(phone);
-		return getPhone;
-	}
+	  @GetMapping("/getPhone/{phone}")
+	    public ResponseEntity<?> getCustByphone(@PathVariable String phone) {
+	        // Validate phone number format using Regex
+	        if (!isValidPhoneNumber(phone)) {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid phone number format");
+	        }
+
+	        Customer customer = repo.findByphone(phone);
+	        if (customer != null) {
+	            return ResponseEntity.ok(customer); // Return customer if found
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Customer not found"); // Return 404 if customer not found
+	        }
+	    }
+	
 	
 	@DeleteMapping("/delete/{phone}")
-	public ResponseEntity<String> deleteCustomer(@PathVariable String phone){
-		service.deleteCustomerByphone(phone);
-		return new ResponseEntity<String>("Customer deleted sucessfully", HttpStatus.OK);
+public String deleteAllByphone(@PathVariable String phone) {
+		if(isValidPhoneNumber(phone)) {
+			Customer customer = repo.getCustByphone(phone);
+			if(customer!=null) {
+				repo.delete(customer);
+			}else {
+				return "data is not existed";
+			}
+		}else {
+			return "phone number is not valid";
+		}
+		return "successfully deletd";
+		
+		
+		
 	}
 	
+	public boolean isValidPhoneNumber(String phoneNumber) {
+        Pattern pattern = Pattern.compile(PHONE_NUMBER_REGEX);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches();
+    }
+	
 	@PutMapping("/update/{phone}")
+	@CrossOrigin(origins = "http://localhost:4200/updateCustomer/9008284002")
+
 	public ResponseEntity<Customer> updateCustomer(@PathVariable String phone, @RequestBody Customer updatedCutomer) {
 		Customer updatedCustomer = service.updateCustomerByPhone(phone, updatedCutomer);
 		if(updatedCustomer != null) {

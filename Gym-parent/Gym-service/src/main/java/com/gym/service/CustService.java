@@ -1,8 +1,11 @@
 package com.gym.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.gym.models.Customer;
@@ -26,19 +29,20 @@ public class CustService {
 		return list;
 	}
 	
-	public Customer getCustByPhone(String phone) {
-		Customer getPhone = repo.getCustByphone( phone);
+	public Customer getCustByphone(String phone) {
+		Customer getPhone = repo.findByphone(phone);
 		return getPhone;
 	}
 	
-	public void  deleteCustomerByphone(String phone) {
-		Customer existingCustomer = repo.findByphone(phone);
-		if(existingCustomer !=null) {
-			repo.delete(existingCustomer);
-		}else {
-			System.out.println("Customer with phone"+phone+"is not present");
-		}
+	public void deleteAllByphone(String phone) {
 		
+		Customer customer = repo.getCustByphone(phone);
+		
+		if(customer != null) {
+			 repo.delete(customer);
+		}else {
+			System.out.println("customer with"+phone+"this no is not present");
+		}
 	}
 	
 	public Customer updateCustomerByPhone(String phone, Customer updatedData) {

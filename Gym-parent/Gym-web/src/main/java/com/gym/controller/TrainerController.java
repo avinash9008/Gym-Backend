@@ -17,6 +17,7 @@ import com.gym.service.TrainerService;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 
+
 public class TrainerController {
 	
 	@Autowired
